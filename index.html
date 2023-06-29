@@ -5,7 +5,10 @@
   </head>
   <body>
     <script>
-      window.location.href = "https://www.pkmndeck.com";
+      var protocol = window.location.protocol ;
+      var hostname = window.location.hostname ;
+      var subdomain = protocol + "//" + "www." + hostname;
+      window.location.href = subdomain;
     </script>
   </body>
 </html>
