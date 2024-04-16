@@ -1,14 +1,35 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <base target="_top">
-  </head>
-  <body>
-    <script>
-      var protocol = window.location.protocol ;
-      var hostname = window.location.hostname ;
-      var subdomain = protocol + "//" + "www." + hostname;
-      window.location.href = subdomain;
-    </script>
-  </body>
+<head>
+    <title>Download File</title>
+</head>
+<body>
+
+<form id="downloadForm" method="post" action="download.php">
+    <input type="hidden" name="filePath" value="内部的なファイルパス">
+    <button type="submit">ファイルをダウンロード</button>
+</form>
+
+<script>
+    document.getElementById('downloadForm').addEventListener('submit', function(event) {
+        // フォームが送信される前に、JavaScriptで内部的なファイルパスを取得し、サーバーに送信する
+        var filePath = "C:\corp_admin\public\images\uploads\company\corp_1\corp_20120615101812.jpg";
+        
+        // ファイルパスをサーバーに送信する処理をここに記述する
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'download.php', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                // ダウンロード処理が成功した場合の処理をここに記述する
+                console.log('ファイルをダウンロードしました');
+            }
+        };
+        xhr.send('filePath=' + filePath);
+
+        event.preventDefault(); // デフォルトのフォーム送信をキャンセル
+    });
+</script>
+
+</body>
 </html>
